@@ -60,11 +60,13 @@ namespace TheSuperHeroProject.Controllers
             try
             {
                 // TODO: Add update logic here
+             //   SuperHero original = new SuperHero();
+               // original = db.SuperHeroes.Where(e => e.Id == id).FirstOrDefault();
+                SuperHero super = new SuperHero(); // created instance in function to be updated
+                super = db.SuperHeroes.Where(hero => hero.Id == superHero.Id).FirstOrDefault(); //setting the instance to the returned super hero
+                super = superHero;
 
 
-                SuperHero superHeroOriginal = db.SuperHeroes.Where(e => e.Id == superHero.Id).FirstOrDefault();
-
-             
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -88,9 +90,15 @@ namespace TheSuperHeroProject.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                SuperHero super1 = new SuperHero();
+
+                super1 = db.SuperHeroes.Where(e => e.Id == id).FirstOrDefault();
+
+                superhero = super1;
+               db.SuperHeroes.Remove(super1);
                 db.SuperHeroes.Remove(superhero);
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             catch
