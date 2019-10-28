@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using TheSuperHeroProject.Models;
 
@@ -16,9 +18,34 @@ namespace TheSuperHeroProject.Controllers
         // GET: SuperHero/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            SuperHero superHero = db.SuperHeroes.Where(e => e.Id == id).FirstOrDefault();
+
+            return View(superHero);
         }
 
+
+
+        // GET: SuperHero/List
+        public ActionResult List()
+        {
+            //List<SuperHero> SuperHeroesList = new List<SuperHero>();
+
+            //foreach (SuperHero hero in db.SuperHeroes.ToList())
+            //    SuperHeroesList.Add(db.SuperHeroes.Where(e => e))
+            try
+            {
+                List<SuperHero> superHeroesList = db.SuperHeroes.ToList();
+
+                return View(superHeroesList);
+            }
+            catch
+            {
+                return View();
+            }
+           
+
+
+        }
         // GET: SuperHero/Create
         public ActionResult Create()
         {
@@ -92,7 +119,7 @@ namespace TheSuperHeroProject.Controllers
             {
                 SuperHero super1 = new SuperHero();
 
-                super1 = db.SuperHeroes.Where(e => e.Id == id).FirstOrDefault();
+                super1 = db.SuperHeroes.Where(e => e.Id == id).SingleOrDefault();
 
                 superhero = super1;
                db.SuperHeroes.Remove(super1);
